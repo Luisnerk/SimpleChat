@@ -6,11 +6,9 @@ using API.Data;
 using API.Entities;
 using API.Interfaces;
 
-namespace API.Repository
+namespace API.Repository;
+public class AppUserRepository : BaseRepository<AppUser>, IAppUserRepository
 {
-    public class AppUserRepository : BaseRepository<AppUser>, IAppUserRepository
-    {
-        public AppUserRepository(DataContext context) : base(context) {}
-        
-    }
+    public AppUserRepository(DataContext context) : base(context) {}
+    
 }

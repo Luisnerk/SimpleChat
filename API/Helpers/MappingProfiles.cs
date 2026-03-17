@@ -13,5 +13,6 @@ public class MappingProfiles : Profile
         CreateMap<AppUser, AppUserDto>()
                                     .ForMember(dest => dest.Age,
                                                 opt => opt.MapFrom(x => x.BirthDate.CalculateAge()));
+        CreateMap<ChatParticipant, ChatParticipantDto>().ReverseMap();
     }
 }
