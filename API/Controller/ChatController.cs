@@ -21,7 +21,7 @@ public class ChatController : BaseApiController
     {
         Chat newChat = new Chat{
             Name = chatDto.Name,
-            Participants = chatDto.UsersId.Select(uid => new ChatParticipant
+            Participants = chatDto.UserIds.Select(uid => new ChatParticipant
             {
                 AppUserId = uid
             }).ToList()
