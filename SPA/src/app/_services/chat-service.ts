@@ -6,17 +6,12 @@ import { ChatCreate } from '../_models/chat-create';
 @Injectable({
   providedIn: 'root',
 })
-export class Chat {
+export class ChatService {
   constructor(private http: HttpClient) {}
 
   baseUrl: string = environment.apiUrl + "Chat/";
 
-  createChat() {
-    const model: ChatCreate = {
-      name: "chat angular",
-      userIds: [1, 2]
-    }
-    console.log(model);
-    return this.http.post(this.baseUrl + 'create', model)
+  createChat(model: ChatCreate) {
+    return this.http.post(this.baseUrl + 'create', model, {observe: "response"});
   }
 }

@@ -5,10 +5,16 @@ using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository;
 public class AppUserRepository : BaseRepository<AppUser>, IAppUserRepository
 {
     public AppUserRepository(DataContext context) : base(context) {}
+
+    public async Task<IEnumerable<AppUser>> SearchList(string nameParam)
+    {
+        return await _context.Set<AppUser>().Where(usr => usr.Name.ToLower().Contains(nameParam)).Take(5).ToListAsync();
+    }
     
 }

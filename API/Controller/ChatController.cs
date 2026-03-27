@@ -19,6 +19,10 @@ public class ChatController : BaseApiController
     [HttpPost("create")]
     public async Task<ActionResult> CreateChat (ChatCreateDto chatDto)
     {
+        if (String.IsNullOrEmpty(chatDto.Name) || chatDto.UserIds.Count() < 1)
+        {
+            return BadRequest();
+        }
         Chat newChat = new Chat{
             Name = chatDto.Name,
             Participants = chatDto.UserIds.Select(uid => new ChatParticipant

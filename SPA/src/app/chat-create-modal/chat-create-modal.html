@@ -1,5 +1,6 @@
-<p>chat-create-modal works!</p>
+<br>
 <button (click)="open(content)">Nuevo Chat</button>
+
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Nuevo Chat</h4>
@@ -13,12 +14,12 @@
             </div>
             <div class="mb-4">
                 <label for="name" class="form-label mt-4">Participantes</label>
-                <ng-select [items]="users"
+                <ng-select [items]="(users$ | async) ?? []"
                             [multiple]="true"
                             bindLabel="name"
                             bindValue="id"
                             (search)="lookFor($event.term)"
-                            (add)="addParticipant($event)"
+                            formControlName="userIds"
                 ></ng-select>
             </div>
             <input class="btn btn-success" type="submit">

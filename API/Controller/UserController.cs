@@ -25,4 +25,12 @@ public class UserController : BaseApiController
         AppUserDto appUserDto = _mapper.Map<AppUserDto>(appUser);
         return appUserDto;
     }
+
+    [HttpGet("searchList")]
+    public async Task<ActionResult<IEnumerable<AppUserDto>>> SearchList(string nameParam)
+    {
+        IEnumerable<AppUser> users = await _repository.SearchList(nameParam);
+        IEnumerable<AppUserDto> usersDto = _mapper.Map<IEnumerable<AppUserDto>>(users);
+        return Ok(usersDto);
+    }
 }
