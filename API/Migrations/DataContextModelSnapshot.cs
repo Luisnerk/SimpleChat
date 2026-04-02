@@ -71,6 +71,29 @@ namespace API.Migrations
                     b.ToTable("ChatParticipant");
                 });
 
+            modelBuilder.Entity("API.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ChatParticipantId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateTimeSent")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatParticipantId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("API.Entities.ChatParticipant", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
@@ -88,6 +111,17 @@ namespace API.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Chat");
+                });
+
+            modelBuilder.Entity("API.Entities.Message", b =>
+                {
+                    b.HasOne("API.Entities.ChatParticipant", "ChatParticipant")
+                        .WithMany()
+                        .HasForeignKey("ChatParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChatParticipant");
                 });
 
             modelBuilder.Entity("API.Entities.Chat", b =>

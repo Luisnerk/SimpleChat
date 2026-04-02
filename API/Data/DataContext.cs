@@ -10,4 +10,5 @@ public class DataContext : DbContext
     public DbSet<AppUser> AppUsers { get; set; }
     public DbSet<Chat> Chat { get; set; }
     public DbSet<ChatParticipant> ChatParticipant { get; set; }
+    public DbSet<Message> Messages { get; set; }
 }

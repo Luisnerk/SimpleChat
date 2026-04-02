@@ -36,4 +36,12 @@ public class ChatController : BaseApiController
 
         return Ok();
     }
+
+    [HttpGet("getChatList")]
+    public async Task<IEnumerable<ChatListDto>> GetChatList(int userId)
+    {
+        IEnumerable<Chat> chatList = await _repository.GetUserChats(userId);
+        IEnumerable<ChatListDto> chatListDto = _mapper.Map<IEnumerable<ChatListDto>>(chatList);
+        return chatListDto;
+    }
 }
