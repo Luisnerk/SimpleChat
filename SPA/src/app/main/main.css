@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    height: 100vh;
+}
+
+.chat-list-container {
+    flex: 0 0 20%;
+    height: 100vh;
+    border: 2px, black, solid;
+    border-radius: 15px;
+    margin-right: 10px;
+
+}

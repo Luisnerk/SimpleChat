@@ -2,12 +2,12 @@ import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { Participant } from '../_models/participant';
+import { Participant } from '../../_models/participant';
 import { catchError, debounce, debounceTime, isEmpty, map, Observable, Subject, switchMap } from 'rxjs';
-import { AppUserService } from '../_services/app-user-service';
+import { AppUserService } from '../../_services/app-user-service';
 import { AsyncPipe } from '@angular/common';
-import { User } from '../_models/user';
-import { ChatService } from '../_services/chat-service';
+import { User } from '../../_models/user';
+import { ChatService } from '../../_services/chat-service';
 
 @Component({
   selector: 'app-chat-create-modal',

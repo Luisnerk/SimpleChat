@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Main } from "./main/main";
-import { ChatCreateModal } from "./chat-create-modal/chat-create-modal";
+import { ChatCreateModal } from "./chat/chat-create-modal/chat-create-modal";
 
 @Component({
   selector: 'app-root',

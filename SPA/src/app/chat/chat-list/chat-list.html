@@ -1,0 +1,8 @@
+<div class="chat-list">
+    @for (chat of (chatList$ | async); track chat.id) {
+        <div class="chat-list-element" (click)="selectChat(chat)">
+            {{chat.name}}
+        </div>
+        <div class="h-line"></div>
+    } 
+</div>

@@ -1,0 +1,14 @@
+.chat-list {
+    display: block;
+
+}
+
+.chat-list-element {
+    padding: 10px 5px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.chat-list-element:hover {
+    background-color: cornsilk;
+}
