@@ -10,10 +10,11 @@ import { Observable } from 'rxjs';
 })
 export class ChatService {
   constructor(private http: HttpClient) {}
+  
+  baseUrl: string = environment.apiUrl + "Chat/";
 
   private selectedChatSignal = signal<Chat | null> (null);
   readonly selectedChat = this.selectedChatSignal.asReadonly();
-  baseUrl: string = environment.apiUrl + "Chat/";
 
   setChat(chat: Chat) {
     this.selectedChatSignal.set(chat);

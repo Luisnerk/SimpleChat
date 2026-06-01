@@ -2,10 +2,16 @@
     <div class="chat-list-container">
         <app-chat-list />
     </div>
-    <div>
-        Esto debe ir fuera
-        {{ currentChat()?.name }}
-    </div>
+    @if (currentChat()) {
+        <div class="app-message-screen">
+            <app-message-screen />
+        </div>
+    }
+    @else {
+        <div>
+            Esto debe ir fuera
+        </div>
+    }
 
 </div>
 

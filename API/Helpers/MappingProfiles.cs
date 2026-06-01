@@ -16,5 +16,10 @@ public class MappingProfiles : Profile
         CreateMap<ChatParticipant, ChatParticipantDto>().ReverseMap();
         CreateMap<Chat, ChatListDto>();
         CreateMap<MessageCreateDto, Message>();
+        CreateMap<Message, MessageListDto>()
+                                    .ForMember(dest => dest.MessageId,
+                                                opt => opt.MapFrom(x => x.Id))
+                                    .ForMember(dest => dest.SenderName,
+                                                opt => opt.MapFrom(src => src.ChatParticipant.AppUser.Name));
     }
 }

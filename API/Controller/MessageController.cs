@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
 
-public class MessageControlller : BaseApiController
+public class MessageController : BaseApiController
 {
     private MessageRepository _repository;
-    public MessageControlller(IMapper mapper, DataContext context) : base(mapper, context)
+    public MessageController(IMapper mapper, DataContext context) : base(mapper, context)
     {
         _repository = new MessageRepository(context);
     }
@@ -22,5 +22,13 @@ public class MessageControlller : BaseApiController
         _repository.Add(newMessage);
         await _repository.SaveAsync();
         return Ok();
+    }
+
+    [HttpGet("getMessages")]
+    public async Task<ActionResult<IEnumerable<Message>>> GetChatMessages(int chatId)
+    {
+        IEnumerable<Message> messages = await _repository.GetMessagesAsync(chatId);
+        var messagesDto = _mapper.Map<IEnumerable<MessageListDto>>(messages);
+        return Ok(messagesDto);
     }
 }
