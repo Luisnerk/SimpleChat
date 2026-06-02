@@ -6,10 +6,11 @@ import { Observable, of, switchMap } from 'rxjs';
 import { MessageService } from '../../_services/message-service';
 import { AsyncPipe } from '@angular/common';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { InputArea } from '../input-area/input-area';
 
 @Component({
   selector: 'app-message-screen',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, InputArea],
   templateUrl: './message-screen.html',
   styleUrl: './message-screen.css',
 })

@@ -1,21 +1,27 @@
-<div class="chat-title">
-    <h5>
-        {{currentChat()!.name}}
-    </h5>
-</div>
+<div class="chat-screen">
+    <div class="chat-title">
+        <h5>
+            {{currentChat()!.name}}
+        </h5>
+    </div>
 
-<div class="chat-container">
-    @for (message of (messageList$ | async); track message.id) {
-        <div class="message-container">
-            <div  class="sender-name">
-                {{message.senderName}}
+    <div class="chat-container">
+        @for (message of (messageList$ | async); track message.id) {
+            <div class="message-container">
+                <div  class="sender-name">
+                    {{message.senderName}}
+                </div>
+                <div class="message-content">
+                    {{message.content}}
+                </div>
+                <div class="message-time">
+                    {{message.dateTimeSent.slice(11, 19)}}
+                </div>
             </div>
-            <div class="message-content">
-                {{message.content}}
-            </div>
-            <div class="message-time">
-                {{message.dateTimeSent.slice(11, 19)}}
-            </div>
-        </div>
-    }
+        }
+    </div>
+
+    <div class="input-area">
+        <app-input-area />
+    </div>
 </div>

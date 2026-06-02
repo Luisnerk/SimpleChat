@@ -1,0 +1,6 @@
+<form [formGroup]="messageForm" (ngSubmit)="submitMessageForm()">
+    <div class="input-group">
+        <textarea formControlName="content" class="form-control" placeholder="Escribe tu mensaje"></textarea>
+        <input class="btn btn-success" type="submit" value="Enviar">
+    </div>
+</form>

@@ -12,6 +12,10 @@ export class MessageService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl + "Message/";
 
+  public sendMessage(content: string){
+    return this.http.post(this.baseUrl + "send", {content: content, chatParticipantId: 1});
+  }
+
   public getMessages(chatId: number): Observable<Message[]>{
     var params = new HttpParams().set("chatId", chatId);
     return this.http.get<Message[]>(this.baseUrl + "getMessages", {params: params});
