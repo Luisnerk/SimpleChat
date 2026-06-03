@@ -5,8 +5,8 @@
         </h5>
     </div>
 
-    <div class="chat-container">
-        @for (message of (messageList$ | async); track message.id) {
+    <div #chatContainer class="chat-container">
+        @for (message of (messageList$ | async); track message.messageId) {
             <div class="message-container">
                 <div  class="sender-name">
                     {{message.senderName}}

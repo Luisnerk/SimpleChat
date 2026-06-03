@@ -7,6 +7,8 @@
 
 .chat-container {
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-title {
