@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -20,5 +22,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("CORS_1");
 app.MapControllers();
+app.MapHub<ChatHub>("/hubs/chat");
 
 app.Run();
