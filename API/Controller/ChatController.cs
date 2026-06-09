@@ -1,19 +1,16 @@
-
-using System.Threading.Tasks;
-using API.Data;
 using API.Dto;
 using API.Entities;
-using API.Repository;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
 public class ChatController : BaseApiController
 {
-    private ChatRepository _repository;
-    public ChatController(IMapper mapper, DataContext context) : base(mapper, context)
+    private IChatRepository _repository;
+    public ChatController(IChatRepository repository, IMapper mapper) : base(mapper)
     {
-        _repository = new ChatRepository(context);
+        _repository = repository;
     }
 
     [HttpPost("create")]

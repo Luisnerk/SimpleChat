@@ -1,8 +1,7 @@
-using API.Data;
 using API.Dto;
 using API.Entities;
 using API.Hubs;
-using API.Repository;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -11,21 +10,31 @@ namespace API.Controller;
 
 public class MessageController : BaseApiController
 {
-    private MessageRepository _repository;
+    private IMessageRepository _repository;
+    private IChatParticipantRepository _participantRepository;
     private readonly IHubContext<ChatHub> _hubContext;
-    public MessageController(IMapper mapper, DataContext context, IHubContext<ChatHub> hubContext) : base(mapper, context)
+    public MessageController(IMessageRepository repository, IChatParticipantRepository participantRepository, IMapper mapper, IHubContext<ChatHub> hubContext) : base(mapper)
     {
-        _repository = new MessageRepository(context);
+        _repository = repository;
+        _participantRepository = participantRepository;
         _hubContext = hubContext;
     }
 
     [HttpPost("send")]
     public async Task<ActionResult> SendMessage(MessageCreateDto messageCreateDto)
     {
-        Message newMessage = _mapper.Map<Message>(messageCreateDto);
-        _repository.Add(newMessage);
-        await _repository.SaveAsync();
-        await _hubContext.Clients.Group(newMessage.ChatParticipant.ChatId.ToString()).SendAsync("NewMessage", newMessage);
+        try
+        {   
+            var participant = await _participantRepository.GetChatParticipant(messageCreateDto.ChatId, messageCreateDto.UserId);
+            Message newMessage = _mapper.Map<Message>(messageCreateDto);
+            _repository.Add(newMessage);
+            await _repository.SaveAsync();
+            await _hubContext.Clients.Group(participant!.ChatId.ToString()).SendAsync("NewMessage", newMessage);
+        } catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return BadRequest();
+        }
         return Ok();
     }
 

@@ -1,18 +1,15 @@
-
-using System.Threading.Tasks;
-using API.Data;
 using API.Dto;
 using API.Entities;
-using API.Repository;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
 public class UserController : BaseApiController
 {
-    private AppUserRepository _repository;
-    public  UserController(IMapper mapper, DataContext context) : base(mapper, context) {
-        _repository = new AppUserRepository(_context);
+    private IAppUserRepository _repository;
+    public  UserController(IAppUserRepository repository, IMapper mapper) : base(mapper) {
+        _repository = repository;
     } 
 
     [HttpPost("register")]

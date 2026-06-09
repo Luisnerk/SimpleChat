@@ -1,18 +1,16 @@
-
-using API.Data;
 using API.Dto;
 using API.Entities;
-using API.Repository;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
 public class ChatParticipantController : BaseApiController
 {
-    private readonly ChatParticipantRepository _repository;
-    public ChatParticipantController(IMapper mapper, DataContext context) : base(mapper, context)
+    private readonly IChatParticipantRepository _repository;
+    public ChatParticipantController(IChatParticipantRepository repository, IMapper mapper) : base(mapper)
     {
-        _repository = new ChatParticipantRepository(context);
+        _repository = repository;
     }
 
     [HttpPost("addParticipant")]

@@ -8,5 +8,5 @@ using API.Repository;
 namespace API.Interfaces;
 public interface IChatParticipantRepository : IBaseRepository<ChatParticipant>
 {
-    
+    public Task<ChatParticipant> GetChatParticipant(int chatId, int userId);
 }

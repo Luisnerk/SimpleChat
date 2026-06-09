@@ -15,7 +15,9 @@ public class MappingProfiles : Profile
                                                 opt => opt.MapFrom(x => x.BirthDate.CalculateAge()));
         CreateMap<ChatParticipant, ChatParticipantDto>().ReverseMap();
         CreateMap<Chat, ChatListDto>();
-        CreateMap<MessageCreateDto, Message>();
+        CreateMap<MessageCreateDto, Message>()
+                                    .ForMember(dest => dest.ChatParticipantId,
+                                                opt => opt.Ignore());
         CreateMap<Message, MessageListDto>()
                                     .ForMember(dest => dest.MessageId,
                                                 opt => opt.MapFrom(x => x.Id))
