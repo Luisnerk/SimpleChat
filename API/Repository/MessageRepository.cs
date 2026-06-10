@@ -15,11 +15,19 @@ public class MessageRepository : BaseRepository<Message>, IMessageRepository
     {
     }
 
-    public async Task<IEnumerable<Message>> GetMessagesAsync(int chatId) {
+    public async Task<IEnumerable<Message>> GetMessageListAsync(int chatId) {
         return  await _context.Set<Message>()
                                     .Include(m => m.ChatParticipant)
                                     .ThenInclude(p => p.AppUser)
                                     .Where(m => m.ChatParticipant.ChatId == chatId)
                                     .ToListAsync();
+    }
+
+    public async Task<Message?> GetMessageAsync(int messageId)
+    {
+        return await _context.Set<Message>().Include(m => m.ChatParticipant)
+                                                .ThenInclude(p => p.AppUser)
+                                                .Where(m => m.ChatParticipant.Id == m.ChatParticipantId)
+                                                .FirstOrDefaultAsync(m => m.Id == messageId);
     }
 }

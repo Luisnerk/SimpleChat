@@ -8,5 +8,6 @@ using API.Repository;
 namespace API.Interfaces;
 public interface IMessageRepository : IBaseRepository<Message>
 {
-    public Task<IEnumerable<Message>> GetMessagesAsync(int chatId);
+    public Task<IEnumerable<Message>> GetMessageListAsync(int chatId);
+    public Task<Message?> GetMessageAsync(int messageId);
 }

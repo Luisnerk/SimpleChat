@@ -20,7 +20,7 @@ public static class ApplicationServiceExtensions
             options.AddPolicy(name: "CORS_1",
             policy =>
             {
-                policy.WithOrigins("http://localhost:4200")
+                policy.WithOrigins("http://localhost:4200", "http://192.168.100.126:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();

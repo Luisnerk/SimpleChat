@@ -30,7 +30,13 @@ public class MessageController : BaseApiController
             newMessage.ChatParticipantId = participant.Id;
             _repository.Add(newMessage);
             await _repository.SaveAsync();
-            await _hubContext.Clients.Group(participant!.ChatId.ToString()).SendAsync("NewMessage", newMessage);
+            var messageReturn = await _repository.GetMessageAsync(newMessage.Id);
+            if (messageReturn == null)
+            {
+                return BadRequest("Failed to fetch message");
+            }
+            MessageListDto mappedMessage = _mapper.Map<MessageListDto>(messageReturn);
+            await _hubContext.Clients.Group(participant!.ChatId.ToString()).SendAsync("NewMessage", mappedMessage);
         } catch (Exception ex)
         {
             Console.WriteLine(ex);
@@ -42,7 +48,7 @@ public class MessageController : BaseApiController
     [HttpGet("getMessages")]
     public async Task<ActionResult<IEnumerable<Message>>> GetChatMessages(int chatId)
     {
-        IEnumerable<Message> messages = await _repository.GetMessagesAsync(chatId);
+        IEnumerable<Message> messages = await _repository.GetMessageListAsync(chatId);
         var messagesDto = _mapper.Map<IEnumerable<MessageListDto>>(messages);
         return Ok(messagesDto);
     }
