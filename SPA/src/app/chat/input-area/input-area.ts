@@ -1,4 +1,4 @@
-import { Component, effect, Signal } from '@angular/core';
+import { Component, effect, input, Input, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
 import { MessageService } from '../../_services/message-service';
@@ -14,28 +14,27 @@ import { Chat } from '../../_models/chat';
 export class InputArea {
   private _fb = inject(FormBuilder);
   private _messageService = inject(MessageService);
-  private _chatService = inject(ChatService);
+  chatId = input<number | null>(null);
 
   messageForm: FormGroup = new FormGroup({});
-  private _currentChat: Signal<Chat | null> = this._chatService.selectedChat;
   
   constructor() {
-    effect(() => {
-      const chat = this._currentChat();
-      this.messageForm.setValue({content: ""});
-    });
-  }
-  
-  ngOnInit() {
     this.messageForm = this._fb.group({
       content: ["", Validators.required]
     })
-    
-  }
+
+    effect(() => {
+      const currentId = this.chatId();
+      this.messageForm.reset();
+    }) 
+  }  
 
   submitMessageForm(){
-    let sub = this._messageService.sendMessage(this.messageForm.value.content).subscribe({
-      complete: () => this.messageForm.setValue({content: ""})
-    });
+    const chatId = this.chatId();
+    if (chatId !== null){
+      let sub = this._messageService.sendMessage(this.messageForm.value.content, chatId).subscribe({
+        next: () => this.messageForm.reset()
+      });
+    }
   }
 }

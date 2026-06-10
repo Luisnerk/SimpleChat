@@ -12,8 +12,9 @@ export class MessageService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl + "Message/";
 
-  public sendMessage(content: string){
-    return this.http.post(this.baseUrl + "send", {content: content, chatParticipantId: 1});
+  public sendMessage(content: string, chatId: number){
+
+    return this.http.post(this.baseUrl + "send", {content: content, userId: 1, chatId: chatId});
   }
 
   public getMessages(chatId: number): Observable<Message[]>{

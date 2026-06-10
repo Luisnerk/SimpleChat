@@ -27,6 +27,7 @@ public class MessageController : BaseApiController
         {   
             var participant = await _participantRepository.GetChatParticipant(messageCreateDto.ChatId, messageCreateDto.UserId);
             Message newMessage = _mapper.Map<Message>(messageCreateDto);
+            newMessage.ChatParticipantId = participant.Id;
             _repository.Add(newMessage);
             await _repository.SaveAsync();
             await _hubContext.Clients.Group(participant!.ChatId.ToString()).SendAsync("NewMessage", newMessage);
