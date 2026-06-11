@@ -4,14 +4,14 @@ import { Chat } from '../../_models/chat';
 import { Message } from '../../_models/message';
 import { merge, Observable, of, scan, switchMap, tap } from 'rxjs';
 import { MessageService } from '../../_services/message-service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { InputArea } from '../input-area/input-area';
 import { SignalrService } from '../../_services/signalr-service';
 
 @Component({
   selector: 'app-message-screen',
-  imports: [AsyncPipe, InputArea],
+  imports: [AsyncPipe, InputArea, DatePipe],
   templateUrl: './message-screen.html',
   styleUrl: './message-screen.css',
 })

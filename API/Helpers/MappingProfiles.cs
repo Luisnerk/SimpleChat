@@ -22,6 +22,9 @@ public class MappingProfiles : Profile
                                     .ForMember(dest => dest.MessageId,
                                                 opt => opt.MapFrom(x => x.Id))
                                     .ForMember(dest => dest.SenderName,
-                                                opt => opt.MapFrom(src => src.ChatParticipant.AppUser.Name));
+                                                opt => opt.MapFrom(src => src.ChatParticipant.AppUser.Name))
+                                    .ForMember(dest => dest.DateTimeSent,
+                                                opt => opt.MapFrom(src => src.DateTimeSent.ToString("o")));
+
     }
 }

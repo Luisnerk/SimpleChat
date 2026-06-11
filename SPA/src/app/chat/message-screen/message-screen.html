@@ -15,7 +15,7 @@
                     {{message.content}}
                 </div>
                 <div class="message-time">
-                    {{message.dateTimeSent.slice(11, 19)}}
+                    {{message.dateTimeSent | date: 'shortTime'}}
                 </div>
             </div>
         }
