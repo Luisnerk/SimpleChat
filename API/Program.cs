@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddSignalR();
+builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -23,5 +24,7 @@ app.UseHttpsRedirection();
 app.UseCors("CORS_1");
 app.MapControllers();
 app.MapHub<ChatHub>("api/hubs/chat");
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

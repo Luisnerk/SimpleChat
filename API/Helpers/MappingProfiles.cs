@@ -9,7 +9,11 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<AppUserRegisterDto, AppUser>();
+        CreateMap<AppUserRegisterDto, AppUser>()
+                                            .ForMember(dest => dest.PasswordHash,
+                                                        opt => opt.Ignore())
+                                            .ForMember(dest => dest.PasswordSalt,
+                                                        opt => opt.Ignore());
         CreateMap<AppUser, AppUserDto>()
                                     .ForMember(dest => dest.Age,
                                                 opt => opt.MapFrom(x => x.BirthDate.CalculateAge()));

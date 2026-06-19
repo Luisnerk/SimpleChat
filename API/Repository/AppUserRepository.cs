@@ -16,5 +16,11 @@ public class AppUserRepository : BaseRepository<AppUser>, IAppUserRepository
     {
         return await _context.Set<AppUser>().Where(usr => usr.Name.ToLower().Contains(nameParam)).Take(5).ToListAsync();
     }
+
+    public async Task<AppUser?> GetUser(string userName)
+    {
+        var user =  await _context.Set<AppUser>().FirstOrDefaultAsync(usr => usr.Username == userName);
+        return user;
+    }
     
 }

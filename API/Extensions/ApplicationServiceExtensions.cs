@@ -2,6 +2,8 @@ using System.Reflection;
 using API.Data;
 using API.Interfaces;
 using API.Repository;
+using API.Services;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -31,5 +33,6 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IChatParticipantRepository, ChatParticipantRepository>();
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddScoped<ITokenService, TokenService>();
     }
 }
