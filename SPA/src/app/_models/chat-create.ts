@@ -1,4 +1,4 @@
 export interface ChatCreate {
     name: string;
-    userIds: number[]
+    userIds: number[];
 }
