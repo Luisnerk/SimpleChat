@@ -20,6 +20,7 @@ public class MessageRepository : BaseRepository<Message>, IMessageRepository
                                     .Include(m => m.ChatParticipant)
                                     .ThenInclude(p => p.AppUser)
                                     .Where(m => m.ChatParticipant.ChatId == chatId)
+                                    .OrderBy(m => m.DateTimeSent)
                                     .ToListAsync();
     }
 

@@ -1,13 +1,16 @@
 using API.Dto;
 using API.Entities;
+using API.Extensions;
 using API.Hubs;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.Controller;
 
+[Authorize]
 public class MessageController : BaseApiController
 {
     private IMessageRepository _repository;
@@ -25,7 +28,8 @@ public class MessageController : BaseApiController
     {
         try
         {   
-            var participant = await _participantRepository.GetChatParticipant(messageCreateDto.ChatId, messageCreateDto.UserId);
+            var participantId = User.GetUserId();
+            var participant = await _participantRepository.GetChatParticipant(messageCreateDto.ChatId, participantId);
             Message newMessage = _mapper.Map<Message>(messageCreateDto);
             newMessage.ChatParticipantId = participant.Id;
             _repository.Add(newMessage);

@@ -2,9 +2,12 @@ using API.Dto;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
+
+[Authorize]
 public class ChatParticipantController : BaseApiController
 {
     private readonly IChatParticipantRepository _repository;

@@ -2,9 +2,12 @@ using API.Dto;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
+
+[Authorize]
 public class UserController : BaseApiController
 {
     private IAppUserRepository _repository;

@@ -25,7 +25,6 @@ export class ChatService {
   }
 
   getChatList(): Observable<Chat[]> {
-    let params = new HttpParams().set("userId", 1);
-    return this.http.get<Chat[]>(this.baseUrl + "getChatList", {params: params})
+    return this.http.get<Chat[]>(this.baseUrl + "getChatList")
   }
 }

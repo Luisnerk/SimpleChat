@@ -12,6 +12,13 @@ public class DataContext : DbContext
         modelBuilder.Entity<AppUser>()
                         .HasIndex(x => x.Username)
                         .IsUnique();
+        
+        modelBuilder.Entity<Message>()
+                        .Property(m => m.DateTimeSent)
+                        .HasConversion(
+                            v => v,
+                            v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+                        );
     }
 
     public DbSet<AppUser> AppUsers { get; set; }
