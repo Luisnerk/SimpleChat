@@ -6,7 +6,7 @@
 .chat-list-container {
     flex: 0 0 20%;
     height: 100vh;
-    border: 2px, black, solid;
+    border: 2px black solid;
     border-radius: 15px;
     margin-right: 10px;
 
@@ -14,4 +14,11 @@
 
 .app-message-screen {
     width: 100vw;
+}
+
+.chat-title {
+    padding: 15px 15px 15px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

@@ -14,7 +14,4 @@ import { currentUser } from './_models/current-user';
 })
 export class App {
   protected readonly title = signal('SPA');
-  private readonly _authService = inject(AuthService);
-
-  user = this._authService.currentUser;
 }

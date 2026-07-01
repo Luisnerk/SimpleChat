@@ -2,16 +2,19 @@
     <div class="chat-list-container">
         <app-chat-list />
     </div>
-    @if (currentChat()) {
-        <div class="app-message-screen">
+    <div class="app-message-screen">
+        <div class="chat-title">
+            <h5>
+                {{ chatTitle() }}
+            </h5>
+            <button class="btn btn-success">
+                Cerrar Sesión
+            </button>
+        </div>
+        @if (currentChat()) {
             <app-message-screen />
-        </div>
-    }
-    @else {
-        <div>
-            Selecciona algún chat
-        </div>
-    }
+        }
+    </div>
 
 </div>
 

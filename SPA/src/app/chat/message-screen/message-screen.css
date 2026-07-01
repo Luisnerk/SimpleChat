@@ -11,10 +11,6 @@
     flex-direction: column;
 }
 
-.chat-title {
-    padding: 15px 0px;
-}
-
 .message-container {
     margin: 10px 15px;
     padding: 5px 10px;

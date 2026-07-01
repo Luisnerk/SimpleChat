@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth-service';
@@ -14,13 +14,15 @@ export class LoginScreen {
   private _fb = inject(FormBuilder);
   private _authService = inject(AuthService);
   private _router = inject(Router);
+  private currentUser = this._authService.currentUser;
   loginForm: FormGroup = new FormGroup({});
 
-  ngOnInit(){
-    if (this._authService.isLogged()) {
-      this._router.navigate(['main']);
-    }
-    this.createForm();
+  constructor() {
+    effect(() => {
+      if (this.currentUser()){
+        this._router.navigate(['main'])
+      }
+    })
   }
 
   createForm() {

@@ -1,9 +1,4 @@
 <div class="chat-screen">
-    <div class="chat-title">
-        <h5>
-            {{currentChat()!.name}}
-        </h5>
-    </div>
 
     <div #chatContainer class="chat-container">
         @for (message of (messageList$ | async); track message.messageId) {
