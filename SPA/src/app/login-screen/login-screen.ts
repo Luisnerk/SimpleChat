@@ -25,6 +25,10 @@ export class LoginScreen {
     })
   }
 
+  ngOnInit() {
+    this.createForm();
+  }
+
   createForm() {
     this.loginForm = this._fb.group({
       username: ["", Validators.required],

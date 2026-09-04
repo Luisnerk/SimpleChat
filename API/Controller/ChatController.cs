@@ -27,6 +27,9 @@ public class ChatController : BaseApiController
         {
             return BadRequest();
         }
+
+        chatDto.UserIds.Add(User.GetUserId());
+
         Chat newChat = new Chat{
             Name = chatDto.Name,
             Participants = chatDto.UserIds.Select(uid => new ChatParticipant

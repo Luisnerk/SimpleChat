@@ -60,6 +60,7 @@ public class AccountController : BaseApiController
 
         return Ok(new CurrentUserDto
         {
+            Id = user.Id,
             Name = user.Name,
             Username = user.Username,
             Token = _tokenService.CreateToken(user)

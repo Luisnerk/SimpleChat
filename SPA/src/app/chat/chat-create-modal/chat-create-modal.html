@@ -1,5 +1,4 @@
 <br>
-<button (click)="open(content)">Nuevo Chat</button>
 
 <ng-template #content let-modal>
     <div class="modal-header">
@@ -22,7 +21,9 @@
                             formControlName="userIds"
                 ></ng-select>
             </div>
-            <input class="btn btn-success" type="submit">
+            <div class="h-center">
+                <input class="btn btn-success" type="submit" value="Crear">
+            </div>
         </form>
     </div>
 </ng-template>

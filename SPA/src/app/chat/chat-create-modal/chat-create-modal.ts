@@ -1,4 +1,4 @@
-import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, inject, Signal, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -8,6 +8,8 @@ import { AppUserService } from '../../_services/app-user-service';
 import { AsyncPipe } from '@angular/common';
 import { User } from '../../_models/user';
 import { ChatService } from '../../_services/chat-service';
+import { AuthService } from '../../_services/auth-service';
+import { currentUser } from '../../_models/current-user';
 
 @Component({
   selector: 'app-chat-create-modal',
@@ -16,11 +18,16 @@ import { ChatService } from '../../_services/chat-service';
   styleUrl: './chat-create-modal.css',
 })
 export class ChatCreateModal {
+  @ViewChild('content') modalContent!: TemplateRef<any>;
+
   private modalService = inject(NgbModal);
+  private authService = inject(AuthService);
   private modalRef: NgbModalRef | undefined;
+  private searchTerm = new Subject<string>();
+  private currentUser: Signal<currentUser | null> = this.authService.currentUser;
+
   close: WritableSignal<string> = signal('');
   chatForm: FormGroup = new FormGroup({});
-  private searchTerm = new Subject<string>();
   users$: Observable<User[]> | undefined;
   selectedUsers: any[] = [];
 
@@ -28,12 +35,17 @@ export class ChatCreateModal {
   
   ngOnInit() {
     this.initializeForm();
-    this.users$ = this.searchTerm.pipe(
-      debounceTime(400),
-      switchMap((term: string) => 
-        this.appUserService.getUserList(term).pipe(catchError(() => []))
-      )
-    );
+    if (this.currentUser()){
+      this.users$ = this.searchTerm.pipe(
+        debounceTime(400),
+        switchMap((term: string) => 
+          this.appUserService.getUserList(term).pipe(
+            map((users) => {return users.filter(user => user.name != this.currentUser()?.name)}),
+            catchError(() => [])
+          )
+        )
+      );
+    }
   }
 
   initializeForm() {
@@ -57,8 +69,8 @@ export class ChatCreateModal {
     })
   }
 
-  open(content: TemplateRef<any>) {
-    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  open() {
+    this.modalRef = this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   lookFor(value: string) {

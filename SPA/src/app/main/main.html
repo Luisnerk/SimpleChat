@@ -7,14 +7,17 @@
             <h5>
                 {{ chatTitle() }}
             </h5>
-            <button class="btn btn-success">
-                Cerrar Sesión
-            </button>
+            <div class="btn-container">
+                <button class="btn btn-success" (click)="openNewChatModal()">Nuevo Chat</button>
+                <button class="btn btn-success" (click)="logOut()">
+                    Cerrar Sesión
+                </button>
+            </div>
         </div>
         @if (currentChat()) {
             <app-message-screen />
         }
     </div>
-
+    
+    <app-chat-create-modal />
 </div>
-

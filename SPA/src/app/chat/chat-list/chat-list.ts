@@ -11,6 +11,7 @@ import { Chat } from '../../_models/chat';
   templateUrl: './chat-list.html',
   styleUrl: './chat-list.css',
 })
+
 export class ChatList {
   chatService = inject(ChatService);
   chatList$: Observable<Chat[]> = this.chatService.getChatList();
